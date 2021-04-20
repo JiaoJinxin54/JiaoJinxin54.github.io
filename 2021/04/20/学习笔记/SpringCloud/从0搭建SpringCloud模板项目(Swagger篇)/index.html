@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习笔记,SpringCloud,swagger," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="swagger并非SpringCloud组件，该SpringCloud模板项目中集成了swagger增强开源项目knife4j，本文记录下集成knife4j的一些配置，以便后续遗忘时进行回顾。 本模板项目中使用knife4j聚合Eureka，进行项目接口的管理，也可通过knife4j生成离线接口文档等扩展操作，本文只进行了简单的集成，更多knife4j操作请查阅社区文档。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从0搭建SpringCloud模板项目(swagger篇)">
+<meta property="og:url" content="https://jiaojinxin.gitee.io/2021/04/20/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SpringCloud/%E4%BB%8E0%E6%90%AD%E5%BB%BASpringCloud%E6%A8%A1%E6%9D%BF%E9%A1%B9%E7%9B%AE(Swagger%E7%AF%87)/index.html">
+<meta property="og:site_name" content="JiaoJinxin">
+<meta property="og:description" content="swagger并非SpringCloud组件，该SpringCloud模板项目中集成了swagger增强开源项目knife4j，本文记录下集成knife4j的一些配置，以便后续遗忘时进行回顾。 本模板项目中使用knife4j聚合Eureka，进行项目接口的管理，也可通过knife4j生成离线接口文档等扩展操作，本文只进行了简单的集成，更多knife4j操作请查阅社区文档。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-04-20T02:45:09.000Z">
+<meta property="article:modified_time" content="2021-04-20T04:11:50.583Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="SpringCloud">
+<meta property="article:tag" content="swagger">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jiaojinxin.gitee.io/2021/04/20/学习笔记/SpringCloud/从0搭建SpringCloud模板项目(Swagger篇)/"/>
+
+
+
+
+
+  <title>从0搭建SpringCloud模板项目(swagger篇) | JiaoJinxin</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JiaoJinxin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">焦金鑫的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jiaojinxin.gitee.io/2021/04/20/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SpringCloud/%E4%BB%8E0%E6%90%AD%E5%BB%BASpringCloud%E6%A8%A1%E6%9D%BF%E9%A1%B9%E7%9B%AE(Swagger%E7%AF%87)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JiaoJinxin">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从0搭建SpringCloud模板项目(swagger篇)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-20T10:45:09+08:00">
+                2021-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SpringCloud/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringCloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>swagger并非SpringCloud组件，该SpringCloud模板项目中集成了swagger增强<br>开源项目knife4j，本文记录下集成knife4j的一些配置，以便后续遗忘时进行回顾。</p>
+<p>本模板项目中使用knife4j聚合Eureka，进行项目接口的管理，也可通过knife4j<br>生成离线接口文档等扩展操作，本文只进行了简单的集成，更多knife4j操作请查阅<br><a target="_blank" rel="noopener" href="https://doc.xiaominfo.com/knife4j/documentation">社区</a>文档。</p>
+<span id="more"></span>
+
+<h2 id="一-knife4j聚合Eureka项目"><a href="#一-knife4j聚合Eureka项目" class="headerlink" title="一. knife4j聚合Eureka项目"></a>一. knife4j聚合Eureka项目</h2><p>单独创建新的子项目，该项目的作用即为调用查看Eureka上注册的服务，并通过Eureka<br>进行http请求访问各服务获取接口信息，访问时直接访问当前项目即可查看所有注册到<br>Eureka中的项目的接口。</p>
+<p><strong>注</strong>：由于该项目需要调用Eureka获取目前已注册到注册中心的各子项目，并将各项目基本<br>信息放到上下文中，所以该项目需要在各子项目均已启动且已成功注册到Eureka中后再进<br>行启动，后续若各子项目重新启动也没关系，因为子项目信息已存入该项目上下文中，所以<br>待子项目启动后即可重新在knife4j中访问子项目的接口。</p>
+<h3 id="1-引入依赖"><a href="#1-引入依赖" class="headerlink" title="1. 引入依赖"></a>1. 引入依赖</h3><p>引入如下依赖，版本可在父项目中进行管理，具体使用版本可访问社区查询最新稳定版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.github.xiaoymin&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;knife4j-aggregation-spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-修改配置文件"><a href="#2-修改配置文件" class="headerlink" title="2. 修改配置文件"></a>2. 修改配置文件</h3><p><code>application.yml</code>中增加如下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">knife4j:</span><br><span class="line">  # 开启聚合功能</span><br><span class="line">  enableAggregation: true</span><br><span class="line">  eureka:</span><br><span class="line">    # 启用聚合Eureka</span><br><span class="line">    enable: true</span><br><span class="line">    # Eureka的地址，多个则以“,”拼接</span><br><span class="line">    serviceUrl: http:&#x2F;&#x2F;127.0.0.1:8001&#x2F;eureka&#x2F;</span><br><span class="line">    # 各子项目信息，可以配置多个</span><br><span class="line">    routes:</span><br><span class="line">      - name: service-demo</span><br><span class="line">        serviceName: service-demo</span><br><span class="line">        # 参数group：项目分组名称，在各子项目中进行配置</span><br><span class="line">        location: &#x2F;v2&#x2F;api-docs?group&#x3D;service-demo</span><br><span class="line">      - name: service-demo-two</span><br><span class="line">        serviceName: service-demo-two</span><br><span class="line">        location: &#x2F;v2&#x2F;api-docs?group&#x3D;service-demo-two</span><br></pre></td></tr></table></figure>
+
+<h2 id="二-各业务模块子项目"><a href="#二-各业务模块子项目" class="headerlink" title="二. 各业务模块子项目"></a>二. 各业务模块子项目</h2><h3 id="1-引入依赖-1"><a href="#1-引入依赖-1" class="headerlink" title="1. 引入依赖"></a>1. 引入依赖</h3><p>引入如下依赖，版本可在父项目中进行管理，具体使用版本可访问社区查询最新稳定版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.github.xiaoymin&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;knife4j-micro-spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-增加配置类"><a href="#2-增加配置类" class="headerlink" title="2. 增加配置类"></a>2. 增加配置类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@EnableSwagger2WebMvc</span><br><span class="line">public class SwaggerConfig &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    public Docket docket()&#123;</span><br><span class="line">        return new Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">                .apiInfo(apiInfo())</span><br><span class="line">                &#x2F;&#x2F; 该配置即为knife4j调用各子项目时的group参数</span><br><span class="line">                .groupName(&quot;service-demo&quot;)</span><br><span class="line">                .select()</span><br><span class="line">                &#x2F;&#x2F; 配置controller接口包路径</span><br><span class="line">                .apis(RequestHandlerSelectors.basePackage(&quot;com.gitee.jiaojinxin&quot;))</span><br><span class="line">                .paths(PathSelectors.any())</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private ApiInfo apiInfo() &#123;</span><br><span class="line">        return new ApiInfoBuilder()</span><br><span class="line">                .title(&quot;service-demo&quot;)</span><br><span class="line">                .description(&quot;service-demo描述&quot;)</span><br><span class="line">                .contact(new Contact(&quot;JiaoJinxin&quot;, &quot;jiaojinxin54.github.io&quot;, &quot;jiaojx54@163.com&quot;))</span><br><span class="line">                .version(&quot;1.0&quot;)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-修改配置文件"><a href="#3-修改配置文件" class="headerlink" title="3. 修改配置文件"></a>3. 修改配置文件</h3><p>配置文件只需要正常配置Eureka相关即可</p>
+<h3 id="4-各接口注解使用"><a href="#4-各接口注解使用" class="headerlink" title="4. 各接口注解使用"></a>4. 各接口注解使用</h3><p>注解使用同正常swagger，如下图所示，详细注解使用参照社区文档：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Api(tags &#x3D; &quot;Test类&quot;)</span><br><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;&#x2F;tc&quot;)</span><br><span class="line">public class TestController &#123;</span><br><span class="line">    @ApiOperation(&quot;获取&quot;)</span><br><span class="line">    @ApiImplicitParam(name &#x3D; &quot;id&quot;, required &#x3D; true, defaultValue &#x3D; &quot;1&quot;)</span><br><span class="line">    @GetMapping(&quot;&#x2F;get&quot;)</span><br><span class="line">    public String get(@RequestParam(value &#x3D; &quot;id&quot;) String id)&#123;</span><br><span class="line">        return &quot;id为：&quot; + id;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          
+            <a href="/tags/SpringCloud/" rel="tag"># SpringCloud</a>
+          
+            <a href="/tags/swagger/" rel="tag"># swagger</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SpringCloud/%E4%BB%8E0%E6%90%AD%E5%BB%BASpringCloud%E6%A8%A1%E6%9D%BF%E9%A1%B9%E7%9B%AE(Eureka%E7%AF%87)/" rel="next" title="从0搭建SpringCloud模板项目(Eureka篇)">
+                <i class="fa fa-chevron-left"></i> 从0搭建SpringCloud模板项目(Eureka篇)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/img/avatar.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:jiaojx54@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-globe"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-knife4j%E8%81%9A%E5%90%88Eureka%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">一. knife4j聚合Eureka项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="nav-number">1.1.</span> <span class="nav-text">1. 引入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">2. 修改配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E5%90%84%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%9D%97%E5%AD%90%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.</span> <span class="nav-text">二. 各业务模块子项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96-1"><span class="nav-number">2.1.</span> <span class="nav-text">1. 引入依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%A2%9E%E5%8A%A0%E9%85%8D%E7%BD%AE%E7%B1%BB"><span class="nav-number">2.2.</span> <span class="nav-text">2. 增加配置类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">3. 修改配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%90%84%E6%8E%A5%E5%8F%A3%E6%B3%A8%E8%A7%A3%E4%BD%BF%E7%94%A8"><span class="nav-number">2.4.</span> <span class="nav-text">4. 各接口注解使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JiaoJinxin</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
