@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习笔记,Oauth2,单点登录," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一. 概念及解决的问题一种开放授权的标准，即一种授权机制。阮一峰大佬对Oauth2.0的解释">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Oauth2.0的单点登录—Oauth2.0（二）">
+<meta property="og:url" content="https://jiaojinxin.gitee.io/2021/03/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Oauth2.0/%E5%9F%BA%E4%BA%8EOauth2-0%E7%9A%84%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E2%80%94Oauth2-0%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="JiaoJinxin">
+<meta property="og:description" content="一. 概念及解决的问题一种开放授权的标准，即一种授权机制。阮一峰大佬对Oauth2.0的解释">
+<meta property="og:locale">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/a31c47a1928f2007c70032dabaac8c48.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/e5648ed1c37032e5d8f72f12745b844c.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/b392d0ea42ed643fbb6aaaa0a9a858f0.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/dfa9b4967297f4718161d276bc82955c.png">
+<meta property="article:published_time" content="2021-03-25T16:53:58.000Z">
+<meta property="article:modified_time" content="2021-03-30T04:11:56.973Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="Oauth2">
+<meta property="article:tag" content="单点登录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/img_convert/a31c47a1928f2007c70032dabaac8c48.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jiaojinxin.gitee.io/2021/03/26/学习笔记/Oauth2.0/基于Oauth2-0的单点登录—Oauth2-0（二）/"/>
+
+
+
+
+
+  <title>基于Oauth2.0的单点登录—Oauth2.0（二） | JiaoJinxin</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JiaoJinxin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">焦金鑫的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jiaojinxin.gitee.io/2021/03/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Oauth2.0/%E5%9F%BA%E4%BA%8EOauth2-0%E7%9A%84%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E2%80%94Oauth2-0%EF%BC%88%E4%BA%8C%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JiaoJinxin">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基于Oauth2.0的单点登录—Oauth2.0（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-26T00:53:58+08:00">
+                2021-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Oauth2/" itemprop="url" rel="index">
+                    <span itemprop="name">Oauth2</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一-概念及解决的问题"><a href="#一-概念及解决的问题" class="headerlink" title="一. 概念及解决的问题"></a>一. 概念及解决的问题</h2><p>一种开放授权的标准，即一种授权机制。<br><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2019/04/oauth_design.html">阮一峰大佬对Oauth2.0的解释</a></p>
+<span id="more"></span>
+
+<h2 id="二-认证授权流程中的4个角色"><a href="#二-认证授权流程中的4个角色" class="headerlink" title="二. 认证授权流程中的4个角色"></a>二. 认证授权流程中的4个角色</h2><ul>
+<li><strong>用户</strong>：资源的拥有着</li>
+<li><strong>客户端</strong>：要访问/获取用户资源的服务</li>
+<li><strong>认证服务器</strong>：对用户与客户端认证授权的服务器</li>
+<li><strong>资源服务器</strong>：保存用户资源的服务器</li>
+</ul>
+<h2 id="三-四种授权模式"><a href="#三-四种授权模式" class="headerlink" title="三. 四种授权模式"></a>三. 四种授权模式</h2><h3 id="一-授权码模式（authorization-code）"><a href="#一-授权码模式（authorization-code）" class="headerlink" title="(一) 授权码模式（authorization code）"></a>(一) 授权码模式（authorization code）</h3><h4 id="1-适用场景"><a href="#1-适用场景" class="headerlink" title="1. 适用场景"></a>1. 适用场景</h4><p>有后端的web应用，是目前最常用的授权模式，安全性也是最高的。授权码通过前端传送，令牌存储在后端，所有与资源服务器之间的通信都在后端完成，避免令牌的泄露，现在市面上的第三方授权多使用该模式。</p>
+<h4 id="2-授权流程"><a href="#2-授权流程" class="headerlink" title="2. 授权流程"></a>2. 授权流程</h4><ol>
+<li>客户端访问认证服务器请求获取授权。</li>
+<li>认证服务器对客户端进行认证。</li>
+<li>认证服务器跳转登录页面要求用户登录。</li>
+<li>用户登录。</li>
+<li>认证服务器对用户进行认证。</li>
+<li>认证服务器询问用户是否授权给客户端。</li>
+<li>用户确认授权给客户端。</li>
+<li>认证服务器在得到客户允许后给客户端发放授权码。</li>
+<li>客户端使用授权码请求获取令牌（该授权码只能使用一次）。</li>
+<li>认证服务器返回令牌。</li>
+<li>客户端使用令牌访问资源服务器。<br><img src="https://img-blog.csdnimg.cn/img_convert/a31c47a1928f2007c70032dabaac8c48.png" alt="授权码模式"><h3 id="二-密码模式（password）"><a href="#二-密码模式（password）" class="headerlink" title="(二) 密码模式（password）"></a>(二) 密码模式（password）</h3><h5 id="1-适用场景-1"><a href="#1-适用场景-1" class="headerlink" title="1. 适用场景"></a>1. 适用场景</h5>高度信任的客户端应用，多用于同公司的系统。<h5 id="2-授权流程-1"><a href="#2-授权流程-1" class="headerlink" title="2. 授权流程"></a>2. 授权流程</h5></li>
+<li>客户端拿上用户的用户名和密码从认证服务器获取令牌。</li>
+<li>认证服务器返回令牌。</li>
+<li>客户端拿上令牌访问资源服务器。<br><img src="https://img-blog.csdnimg.cn/img_convert/e5648ed1c37032e5d8f72f12745b844c.png" alt="密码模式"><h3 id="三-简化模式-隐式授权模式（implicit）"><a href="#三-简化模式-隐式授权模式（implicit）" class="headerlink" title="(三) 简化模式/隐式授权模式（implicit）"></a>(三) 简化模式/隐式授权模式（implicit）</h3><h5 id="1-适用场景-2"><a href="#1-适用场景-2" class="headerlink" title="1. 适用场景"></a>1. 适用场景</h5>无后端的web应用，令牌需要存储在前端，安全性较差，所以只能用在对安全性要求不高的场景，并且令牌的有效期必须非常短，通常都是会话期间（session）有效，浏览器关掉的时，令牌就失效了。<h5 id="2-授权流程-2"><a href="#2-授权流程-2" class="headerlink" title="2. 授权流程"></a>2. 授权流程</h5></li>
+<li>客户端访问认证服务器获取令牌。</li>
+<li>认证服务器返回令牌。</li>
+<li>客户端访问资源服务器。<br><img src="https://img-blog.csdnimg.cn/img_convert/b392d0ea42ed643fbb6aaaa0a9a858f0.png" alt="简化模式"><h3 id="四-客户端模式（client-credentials）"><a href="#四-客户端模式（client-credentials）" class="headerlink" title="(四) 客户端模式（client credentials）"></a>(四) 客户端模式（client credentials）</h3><h5 id="1-适用场景-3"><a href="#1-适用场景-3" class="headerlink" title="1. 适用场景"></a>1. 适用场景</h5>高度信任的客户端应用，该模式是针对第三方客户端而非针对用户，即可能多个用户共享同一个令牌。<h5 id="2-授权流程-3"><a href="#2-授权流程-3" class="headerlink" title="2. 授权流程"></a>2. 授权流程</h5></li>
+<li>客户端使用客户端凭证访问认证服务器获取令牌。</li>
+<li>认证服务器返回令牌。</li>
+<li>客户端使用令牌访问资源服务器。<br><img src="https://img-blog.csdnimg.cn/img_convert/dfa9b4967297f4718161d276bc82955c.png" alt="客户端模式"></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          
+            <a href="/tags/Oauth2/" rel="tag"># Oauth2</a>
+          
+            <a href="/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" rel="tag"># 单点登录</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Oauth2.0/%E5%9F%BA%E4%BA%8EOauth2-0%E7%9A%84%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E2%80%94%E5%88%9D%E8%AF%86Security%EF%BC%88%E4%B8%80%EF%BC%89/" rel="next" title="基于Oauth2.0的单点登录—初识Security（一）">
+                <i class="fa fa-chevron-left"></i> 基于Oauth2.0的单点登录—初识Security（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Oauth2.0/%E5%9F%BA%E4%BA%8EOauth2-0%E7%9A%84%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E2%80%94%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95-%E4%B8%89/" rel="prev" title="基于Oauth2.0的单点登录—单点登录(三)">
+                基于Oauth2.0的单点登录—单点登录(三) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/img/avatar.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:jiaojx54@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-globe"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E6%A6%82%E5%BF%B5%E5%8F%8A%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">一. 概念及解决的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%844%E4%B8%AA%E8%A7%92%E8%89%B2"><span class="nav-number">2.</span> <span class="nav-text">二. 认证授权流程中的4个角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E5%9B%9B%E7%A7%8D%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">三. 四种授权模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80-%E6%8E%88%E6%9D%83%E7%A0%81%E6%A8%A1%E5%BC%8F%EF%BC%88authorization-code%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">(一) 授权码模式（authorization code）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.1.1.</span> <span class="nav-text">1. 适用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%8E%88%E6%9D%83%E6%B5%81%E7%A8%8B"><span class="nav-number">3.1.2.</span> <span class="nav-text">2. 授权流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C-%E5%AF%86%E7%A0%81%E6%A8%A1%E5%BC%8F%EF%BC%88password%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">(二) 密码模式（password）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">1. 适用场景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%8E%88%E6%9D%83%E6%B5%81%E7%A8%8B-1"><span class="nav-number">3.2.0.2.</span> <span class="nav-text">2. 授权流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89-%E7%AE%80%E5%8C%96%E6%A8%A1%E5%BC%8F-%E9%9A%90%E5%BC%8F%E6%8E%88%E6%9D%83%E6%A8%A1%E5%BC%8F%EF%BC%88implicit%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">(三) 简化模式&#x2F;隐式授权模式（implicit）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="nav-number">3.3.0.1.</span> <span class="nav-text">1. 适用场景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%8E%88%E6%9D%83%E6%B5%81%E7%A8%8B-2"><span class="nav-number">3.3.0.2.</span> <span class="nav-text">2. 授权流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A8%A1%E5%BC%8F%EF%BC%88client-credentials%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">(四) 客户端模式（client credentials）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-3"><span class="nav-number">3.4.0.1.</span> <span class="nav-text">1. 适用场景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E6%8E%88%E6%9D%83%E6%B5%81%E7%A8%8B-3"><span class="nav-number">3.4.0.2.</span> <span class="nav-text">2. 授权流程</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JiaoJinxin</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
