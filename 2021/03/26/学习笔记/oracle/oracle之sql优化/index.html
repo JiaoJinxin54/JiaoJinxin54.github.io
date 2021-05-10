@@ -144,7 +144,7 @@
       applicationID: '',
       apiKey: '',
       indexName: '',
-      hits: {"per_page":10},
+      hits: {"per_page":5},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
   };
@@ -567,17 +567,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -657,22 +648,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%8F%90"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ORACLE%E4%B8%ADSQL%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">ORACLE中SQL的执行过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%9A%84%E6%B3%95%E5%88%99%EF%BC%88%E4%BC%98%E5%8C%96%E6%96%B9%E5%90%91%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">优化的法则（优化方向）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A1%A8%E6%89%AB%E6%8F%8F%E6%96%B9%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">执行计划中常见的表扫描方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%9A%84%E5%87%A0%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="nav-number">5.</span> <span class="nav-text">优化的几个阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B5%84%E6%BA%90%E9%85%8D%E7%BD%AE"><span class="nav-number">5.1.</span> <span class="nav-text">(1) 数据库资源配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">5.2.</span> <span class="nav-text">(2) 数据结构的设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-SQL%E7%BC%96%E5%86%99"><span class="nav-number">5.3.</span> <span class="nav-text">(3) SQL编写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%9A%84%E6%89%8B%E6%AE%B5%EF%BC%88%E9%9C%80%E7%BB%93%E5%90%88%E5%AE%9E%E9%99%85%E4%B8%9A%E5%8A%A1%E3%80%81%E6%88%90%E6%9C%AC%E7%AD%89%E5%A4%9A%E6%96%B9%E9%9D%A2%E8%80%83%E8%99%91%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">其他的手段（需结合实际业务、成本等多方面考虑）</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

@@ -94,7 +94,7 @@
 
 
 
-  <meta name="keywords" content="JiaoJinxin, jiaojinxin, 焦金鑫, Hexo, NexT" />
+  <meta name="keywords" content=",,,," />
 
 
 
@@ -105,15 +105,20 @@
 
 
 
-<meta name="description" content="记录学习笔记，记录生活。">
+<meta name="description" content="本位整理了SpringBoot的自动配置（@EnableAutoConfiguration）的相关学习笔记，若后续遗忘时进行回顾， 一. @EnableAutoConfiguration注解解读@EnableAutoConfiguration源码如下：">
 <meta property="og:type" content="website">
-<meta property="og:title" content="JiaoJinxin">
-<meta property="og:url" content="https://jiaojinxin.gitee.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="SpringBoot自动配置@EnableAutoConfiguration">
+<meta property="og:url" content="https://jiaojinxin.gitee.io/%E8%8D%89%E7%A8%BF/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE.html">
 <meta property="og:site_name" content="JiaoJinxin">
-<meta property="og:description" content="记录学习笔记，记录生活。">
+<meta property="og:description" content="本位整理了SpringBoot的自动配置（@EnableAutoConfiguration）的相关学习笔记，若后续遗忘时进行回顾， 一. @EnableAutoConfiguration注解解读@EnableAutoConfiguration源码如下：">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-04-22T08:20:24.000Z">
+<meta property="article:modified_time" content="2021-04-23T02:51:12.061Z">
 <meta property="article:author" content="JiaoJinxin">
-<meta property="article:tag" content="JiaoJinxin jiaojinxin 焦金鑫">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="源码学习">
+<meta property="article:tag" content="自动配置">
+<meta property="article:tag" content="AutoConfig">
 <meta name="twitter:card" content="summary">
 
 
@@ -144,13 +149,13 @@
 
 
 
-  <link rel="canonical" href="https://jiaojinxin.gitee.io/tags/学习笔记/"/>
+  <link rel="canonical" href="https://jiaojinxin.gitee.io/草稿/源码学习/SpringBoot自动配置.html"/>
 
 
 
 
 
-  <title>标签: 学习笔记 | JiaoJinxin</title>
+  <title>SpringBoot自动配置@EnableAutoConfiguration | JiaoJinxin</title>
   
 
 
@@ -169,7 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -263,170 +268,64 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>学习笔记<small>标签</small>
-        </h1>
-      </div>
+	<h1 class="post-title" itemprop="name headline">SpringBoot自动配置@EnableAutoConfiguration</h1>
 
-      
-        
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2021/04/20/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SpringCloud/%E4%BB%8E0%E6%90%AD%E5%BB%BASpringCloud%E6%A8%A1%E6%9D%BF%E9%A1%B9%E7%9B%AE(Swagger%E7%AF%87)/" itemprop="url">
-              
-                <span itemprop="name">从0搭建SpringCloud模板项目(swagger篇)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2021-04-20T10:45:09+08:00"
-              content="2021-04-20" >
-          04-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+</header>
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2021/04/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SpringCloud/%E4%BB%8E0%E6%90%AD%E5%BB%BASpringCloud%E6%A8%A1%E6%9D%BF%E9%A1%B9%E7%9B%AE(Eureka%E7%AF%87)/" itemprop="url">
-              
-                <span itemprop="name">从0搭建SpringCloud模板项目(Eureka篇)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2021-04-15T16:54:29+08:00"
-              content="2021-04-15" >
-          04-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2021/03/29/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/docker%E9%83%A8%E7%BD%B2jenkins/" itemprop="url">
-              
-                <span itemprop="name">docker部署jenkins</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2021-03-29T11:29:38+08:00"
-              content="2021-03-29" >
-          03-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
       
+      <div class="post-body">
         
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
         
-            <a class="post-title-link" href="/2021/03/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/docker%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E7%A7%81%E6%9C%89registry/" itemprop="url">
-              
-                <span itemprop="name">docker搭建本地私有registry</span>
-              
-            </a>
-        
-      </h2>
+          <p>本位整理了SpringBoot的自动配置（<code>@EnableAutoConfiguration</code>）的相关学习笔记，若后续遗忘时进行回顾，</p>
+<h2 id="一-EnableAutoConfiguration注解解读"><a href="#一-EnableAutoConfiguration注解解读" class="headerlink" title="一. @EnableAutoConfiguration注解解读"></a>一. @EnableAutoConfiguration注解解读</h2><p><code>@EnableAutoConfiguration</code>源码如下：</p>
+<span id="more"></span>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2021-03-27T23:33:56+08:00"
-              content="2021-03-27" >
-          03-27
-        </time>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Inherited</span><br><span class="line">@AutoConfigurationPackage</span><br><span class="line">@Import(&#123;AutoConfigurationImportSelector.class&#125;)</span><br><span class="line">public @interface EnableAutoConfiguration &#123;</span><br><span class="line">    String ENABLED_OVERRIDE_PROPERTY &#x3D; &quot;spring.boot.enableautoconfiguration&quot;;</span><br><span class="line">    Class&lt;?&gt;[] exclude() default &#123;&#125;;</span><br><span class="line">    String[] excludeName() default &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中有两个重要注解：</p>
+<ul>
+<li><code>@AutoConfigurationPackage</code></li>
+<li><code>@Import(&#123;AutoConfigurationImportSelector.class&#125;)</code></li>
+</ul>
+<p>其中<code>@AutoConfigurationPackage</code>注解中又包含<code>@Import(AutoConfigurationPackages.Registrar.class)</code>，<br>则实际上<code>@EnableAutoConfiguration</code>有两个重要的类，即<code>AutoConfigurationImportSelector</code>与<code>AutoConfigurationPackages.Registrar</code></p>
+<h2 id="二-自动配置原理"><a href="#二-自动配置原理" class="headerlink" title="二. 自动配置原理"></a>二. 自动配置原理</h2><p>上面介绍了<code>@EnableAutoConfiguration</code>的重要类，现在大概介绍下自动配置的原理，最后再结合代码进行验证。</p>
+<p>SpringBoot的自动配置实际上也可以称为自动扫描并配置，扫描方式有两种：</p>
+<ul>
+<li>扫描添加<code>@EnableAutoConfiguration</code>注解的类所在的包下面的类，找到其中添加<code>@Component</code>注解的类；</li>
+<li>扫描<code>spring.factories</code>文件中配置的类，该文件位置在<code>META-INF</code>下；</li>
+</ul>
+<p>实际上自动配置并没有很高深，只是根据一定的规则进行类的扫描，通过反射再将Bean注册到Spring容器中。</p>
+<h2 id="三-自动配置源码实现"><a href="#三-自动配置源码实现" class="headerlink" title="三. 自动配置源码实现"></a>三. 自动配置源码实现</h2><h3 id="1-AutoConfigurationPackages-Registrar"><a href="#1-AutoConfigurationPackages-Registrar" class="headerlink" title="1. AutoConfigurationPackages.Registrar"></a>1. AutoConfigurationPackages.Registrar</h3><p>该静态内部类主要实现了<code>ImportBeanDefinitionRegistrar</code>与<code>DeterminableImports</code>两个接口，源码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static class Registrar implements ImportBeanDefinitionRegistrar, DeterminableImports &#123;</span><br><span class="line">    &#x2F;&#x2F; </span><br><span class="line">	@Override</span><br><span class="line">	public void registerBeanDefinitions(AnnotationMetadata metadata, BeanDefinitionRegistry registry) &#123;</span><br><span class="line">		register(registry, new PackageImport(metadata).getPackageName());</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public Set&lt;Object&gt; determineImports(AnnotationMetadata metadata) &#123;</span><br><span class="line">		return Collections.singleton(new PackageImport(metadata));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>new PackageImport(metadata).getPackageName()</code>，获取启动类所在的包名，可通过IDEA进行DEBUG查询。<br><code>register()</code>，将Bean注册到Spring容器中。<br>实际上该方法的作用即将启动类所在包下的配置组件扫描到Spring容器中，也就是说只要配置类在该包下就会被自动注册到Spring容器中。</p>
+<h3 id="2-AutoConfigurationImportSelector"><a href="#2-AutoConfigurationImportSelector" class="headerlink" title="2. AutoConfigurationImportSelector"></a>2. AutoConfigurationImportSelector</h3><p>该类实现了<code>ImportSelector</code>接口，该接口的<code>selectImports</code>方法的目的是为了告诉SpringBoot导入哪些组件，即返回值就是实际上要导入到Spring容器中的组件全名。<br>主要是检索了所有<code>spring.factories</code>文件中配置的类，并将这些配置类注册到Spring容器中。<br>也就是说只要在<code>spring.factories</code>做了配置，就会被注册到Spring容器中。</p>
+<h2 id="四-总结三种-Import的使用方式"><a href="#四-总结三种-Import的使用方式" class="headerlink" title="四. 总结三种@Import的使用方式"></a>四. 总结三种@Import的使用方式</h2><ul>
+<li>使用<code>@Import(&#123;XXX.class, YYY.class&#125;)</code>，且XXX与YYY均需要添加<code>@Component</code>等相关注解;</li>
+<li>实现<code>ImportBeanDefinitionRegistrar</code>接口，并实现该接口的<code>registerBeanDefinitions</code>方法，再使用<code>@Import(XXXRegistrar.class)</code>;</li>
+<li>实现<code>ImportSelector</code>接口，并实现该接口的<code>selectImports</code>方法，再使用<code>@Import(XXXImportSelector.class)</code>；</li>
+</ul>
+
+        
       </div>
-
-    </header>
-  </article>
-
-
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2021/03/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Oauth2.0/%E5%9F%BA%E4%BA%8EOauth2-0%E7%9A%84%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E2%80%94%E6%90%AD%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF-%E5%85%AD/" itemprop="url">
-              
-                <span itemprop="name">基于Oauth2.0的单点登录—搭建客户端(六)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2021-03-26T01:01:49+08:00"
-              content="2021-03-26" >
-          03-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
       
     </div>
-
+    
+    
+    
   </div>
-  
-  
-  
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/page/4/">4</a><a class="extend next" rel="next" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/page/2/">下一页</a>
-  </nav>
-
 
 
           </div>
@@ -434,6 +333,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -662,6 +565,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
