@@ -113,7 +113,7 @@
 <meta property="og:description" content="本文整理了drools的部分语法，随着后续的使用，逐步扩展。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-06-15T01:27:38.000Z">
-<meta property="article:modified_time" content="2021-06-15T04:29:42.350Z">
+<meta property="article:modified_time" content="2021-06-15T06:00:56.175Z">
 <meta property="article:author" content="JiaoJinxin">
 <meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="规则引擎">
@@ -128,7 +128,7 @@
     root: '',
     scheme: 'Mist',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"remove","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -240,7 +240,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+          <a href="/about" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
@@ -454,11 +454,8 @@
 <td align="center">not matches</td>
 <td align="center">判断一个Fact对象的属性是否不与提供的标准的Java正则表达式进行匹配</td>
 </tr>
-<tr>
-<td align="center">前面种与java中使用方式一致，后六种的语法如下示例：</td>
-<td align="center"></td>
-</tr>
 </tbody></table>
+<p>前面种与java中使用方式一致，后六种的语法如下示例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">rule 规则示例</span><br><span class="line">    when</span><br><span class="line">        user:User(roles contains &quot;管理员&quot;)</span><br><span class="line">        user:User(roles not contains &quot;管理员&quot;)</span><br><span class="line">        user:User(&quot;管理员&quot; memberOf roles)</span><br><span class="line">        user:User(&quot;管理员&quot; not memberOf roles)</span><br><span class="line">        user:User(name matches &quot;正则表达式&quot;)</span><br><span class="line">        user:User(name not matches &quot;正则表达式&quot;)</span><br><span class="line">    then</span><br><span class="line">        System.out.println(&quot;规则示例&quot;);</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
 
 <h3 id="多条件"><a href="#多条件" class="headerlink" title="多条件"></a>多条件</h3><p>可以使用<code>and</code>、<code>or</code>、<code>&amp;&amp;</code>、<code>||</code>、<code>,</code>，其中<code>,</code>表示与，注意使用时，不要混合使用。<br>示例：</p>
@@ -624,113 +621,6 @@
 
 
         </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/img/avatar.jpg"
-                alt="" />
-            
-              <p class="site-author-name" itemprop="name"></p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">21</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:jiaojx54@163.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="undefined" target="_blank" title="QQ">
-                      
-                        <i class="fa fa-fw fa-globe"></i>QQ</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
         
       </div>
     </main>
