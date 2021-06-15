@@ -94,7 +94,7 @@
 
 
 
-  <meta name="keywords" content="学习笔记,docker," />
+  <meta name="keywords" content="学习笔记,docker,drools,workbench," />
 
 
 
@@ -105,22 +105,21 @@
 
 
 
-<meta name="description" content="本文主要为了记录在腾讯云上安装docker的步骤，方便后续遗忘后进行查看。 1. 查询已安装的旧版docker">
+<meta name="description" content="本文主要为了记录使用Docker部署DroolsWorkBench的过程。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="centos安装docker">
-<meta property="og:url" content="https://jiaojinxin.gitee.io/2021/03/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/centos%E5%AE%89%E8%A3%85docker/index.html">
+<meta property="og:title" content="Docker部署DroolsWorkBench">
+<meta property="og:url" content="https://jiaojinxin.gitee.io/2021/06/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/Docker%E9%83%A8%E7%BD%B2DroolsWorkBench/index.html">
 <meta property="og:site_name" content="JiaoJinxin">
-<meta property="og:description" content="本文主要为了记录在腾讯云上安装docker的步骤，方便后续遗忘后进行查看。 1. 查询已安装的旧版docker">
+<meta property="og:description" content="本文主要为了记录使用Docker部署DroolsWorkBench的过程。">
 <meta property="og:locale">
-<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/03/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/centos%E5%AE%89%E8%A3%85docker/image-20210323225528495.png">
-<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/03/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/centos%E5%AE%89%E8%A3%85docker/image-20210323231415908.png">
-<meta property="article:published_time" content="2021-03-25T04:40:26.000Z">
-<meta property="article:modified_time" content="2021-03-30T04:11:56.961Z">
+<meta property="article:published_time" content="2021-06-08T09:26:43.000Z">
+<meta property="article:modified_time" content="2021-06-11T09:45:14.742Z">
 <meta property="article:author" content="JiaoJinxin">
 <meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="docker">
+<meta property="article:tag" content="drools">
+<meta property="article:tag" content="workbench">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jiaojinxin.gitee.io/2021/03/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/centos%E5%AE%89%E8%A3%85docker/image-20210323225528495.png">
 
 
 
@@ -150,13 +149,13 @@
 
 
 
-  <link rel="canonical" href="https://jiaojinxin.gitee.io/2021/03/25/学习笔记/docker相关/centos安装docker/"/>
+  <link rel="canonical" href="https://jiaojinxin.gitee.io/2021/06/08/学习笔记/docker相关/Docker部署DroolsWorkBench/"/>
 
 
 
 
 
-  <title>centos安装docker | JiaoJinxin</title>
+  <title>Docker部署DroolsWorkBench | JiaoJinxin</title>
   
 
 
@@ -283,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jiaojinxin.gitee.io/2021/03/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/centos%E5%AE%89%E8%A3%85docker/">
+    <link itemprop="mainEntityOfPage" href="https://jiaojinxin.gitee.io/2021/06/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/Docker%E9%83%A8%E7%BD%B2DroolsWorkBench/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -300,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">centos安装docker</h1>
+          <h1 class="post-title" itemprop="name headline">Docker部署DroolsWorkBench</h1>
         
 
         <div class="post-meta">
@@ -312,8 +311,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-25T12:40:26+08:00">
-                2021-03-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-08T17:26:43+08:00">
+                2021-06-08
               </time>
             
 
@@ -383,39 +382,30 @@
       
 
       
-        <p>本文主要为了记录在腾讯云上安装docker的步骤，方便后续遗忘后进行查看。</p>
-<h2 id="1-查询已安装的旧版docker"><a href="#1-查询已安装的旧版docker" class="headerlink" title="1. 查询已安装的旧版docker"></a>1. 查询已安装的旧版docker</h2><span id="more"></span>
+        <p>本文主要为了记录使用Docker部署DroolsWorkBench的过程。</p>
+<span id="more"></span>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list installed | grep docker</span><br></pre></td></tr></table></figure>
+<h2 id="查找镜像"><a href="#查找镜像" class="headerlink" title="查找镜像"></a>查找镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 输入命令</span><br><span class="line">docker search drools-workbench</span><br><span class="line"></span><br><span class="line"># 结果展示（只列出其中部分）</span><br><span class="line">NAME                                     DESCRIPTION                                STARS     OFFICIAL   AUTOMATED</span><br><span class="line">jboss&#x2F;drools-workbench-showcase          Drools Workbench Showcase                  80                   [OK]</span><br><span class="line">jboss&#x2F;drools-workbench                   Drools Workbench                           60                   [OK]</span><br></pre></td></tr></table></figure>
 
-<img src="/2021/03/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/centos%E5%AE%89%E8%A3%85docker/image-20210323225528495.png" class="" title="查询已安装的docker">
+<h2 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h2><p>这里选择<code>drools-workbench-showcase</code>最新版，因为它是官方配置好的<code>drools-workbench</code>，用户不用自己去注册，直接将账号拿来登录即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull jboss&#x2F;drools-workbench-showcase</span><br></pre></td></tr></table></figure>
 
-<h2 id="2-卸载已安装的旧版docker"><a href="#2-卸载已安装的旧版docker" class="headerlink" title="2. 卸载已安装的旧版docker"></a>2. 卸载已安装的旧版docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker.x86_64</span><br><span class="line">yum remove docker-client.x86_64</span><br><span class="line">yum remove docker-common.x86_64</span><br></pre></td></tr></table></figure>
+<h2 id="创建并启动镜像"><a href="#创建并启动镜像" class="headerlink" title="创建并启动镜像"></a>创建并启动镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd --name drools-wb -p 8910:8080 -p 8911:8001 jboss&#x2F;drools-workbench-showcase</span><br></pre></td></tr></table></figure>
 
-<p>卸载上一步中查询到的已安装的docker，卸载完成后再次执行”<strong>yum list installed | grep docker</strong>“进行查询，若什么都查不到，则旧版本已卸载完成。</p>
-<h2 id="3-安装docker"><a href="#3-安装docker" class="headerlink" title="3. 安装docker"></a>3. 安装docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y docker</span><br></pre></td></tr></table></figure>
+<h2 id="复制文件到本机"><a href="#复制文件到本机" class="headerlink" title="复制文件到本机"></a>复制文件到本机</h2><p>将<code>/opt/jboss/wildfly/bin</code>目录及下面文件复制到宿主机，这里为Win10系统，若为linux系统则替换为对应目录，注：要保证目录存在且有操作权限。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp drools-wb:&#x2F;opt&#x2F;jboss&#x2F;wildfly&#x2F;bin E:\docker-file\jboos\wildfly</span><br></pre></td></tr></table></figure>
 
-<h2 id="4-查看是否安装成功"><a href="#4-查看是否安装成功" class="headerlink" title="4. 查看是否安装成功"></a>4. 查看是否安装成功</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker -v</span><br></pre></td></tr></table></figure>
+<h2 id="删除原容器，创建并启动新容器，并映射外部文件夹"><a href="#删除原容器，创建并启动新容器，并映射外部文件夹" class="headerlink" title="删除原容器，创建并启动新容器，并映射外部文件夹"></a>删除原容器，创建并启动新容器，并映射外部文件夹</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker stop drools-wb</span><br><span class="line">docker rm drools-wb</span><br><span class="line">docker run -itd --name drools-wb -p 8910:8080 -p 8911:8001 -v E:\docker-file\jboos\wildfly\bin:&#x2F;opt&#x2F;jboss&#x2F;wildfly&#x2F;bin jboss&#x2F;drools-workbench-showcase</span><br></pre></td></tr></table></figure>
 
-<p>若可以正常显示docker版本，即表示docker已安装完成。</p>
-<h2 id="5-更换国内镜像源"><a href="#5-更换国内镜像源" class="headerlink" title="5. 更换国内镜像源"></a>5. 更换国内镜像源</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;docker&#x2F;daemon.json</span><br></pre></td></tr></table></figure>
+<h2 id="打开控制台"><a href="#打开控制台" class="headerlink" title="打开控制台"></a>打开控制台</h2><p>地址为：<a target="_blank" rel="noopener" href="http://localhost:8910/business-central">http://ip:prod/business-central</a>；</p>
+<p>ip为drools-wb所在服务器的ip，这里为本地服务，即localhost</p>
+<p>prod为8080的映射端口，这里为8910</p>
+<p>用户名密码在文件<code>/opt/jboss/wildfly/standalone/configuration/drools-users.properties</code>中，<br>角色在文件<code>/opt/jboss/wildfly/standalone/configuration/drools-roles.properties</code>中，<br>可进入容器进行查看。</p>
+<h2 id="拉取kie-server-showcase"><a href="#拉取kie-server-showcase" class="headerlink" title="拉取kie-server-showcase"></a>拉取kie-server-showcase</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull jboss&#x2F;kie-server-showcase</span><br></pre></td></tr></table></figure>
+<h2 id="创建并启动容器"><a href="#创建并启动容器" class="headerlink" title="创建并启动容器"></a>创建并启动容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd -p 8912:8080 --name kie-server-showcase --link drools-wb:kie_wb jboss&#x2F;kie-server-showcase</span><br></pre></td></tr></table></figure>
 
-<p>修改daemon.json，按<strong>i</strong>进入编辑模式，将以下内容复制进去，按<strong>esc</strong>退出编辑模式，输入 <strong>:wq</strong>退出编辑并保存。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;registry-mirrors&quot;: [</span><br><span class="line">        &quot;https:&#x2F;&#x2F;registry.docker-cn.com&quot;,</span><br><span class="line">        &quot;http:&#x2F;&#x2F;hub-mirror.c.163.com&quot;,</span><br><span class="line">        &quot;https:&#x2F;&#x2F;docker.mirrors.ustc.edu.cn&quot;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上述地址只需要有一个即可，三个地址分别为：</p>
-<ul>
-<li><strong>Docker中国区官方镜像</strong>：<a target="_blank" rel="noopener" href="https://registry.docker-cn.com/">https://registry.docker-cn.com</a></li>
-<li><strong>网易</strong>：<a target="_blank" rel="noopener" href="http://hub-mirror.c.163.com/">http://hub-mirror.c.163.com</a></li>
-<li><strong>中国科技大学</strong>：<a target="_blank" rel="noopener" href="https://docker.mirrors.ustc.edu.cn/">https://docker.mirrors.ustc.edu.cn</a></li>
-</ul>
-<h2 id="6-启动docker"><a href="#6-启动docker" class="headerlink" title="6. 启动docker"></a>6. 启动docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
-
-<h2 id="7-查看是否启动，且镜像源是否更换成功"><a href="#7-查看是否启动，且镜像源是否更换成功" class="headerlink" title="7. 查看是否启动，且镜像源是否更换成功"></a>7. 查看是否启动，且镜像源是否更换成功</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
-
-<img src="/2021/03/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/centos%E5%AE%89%E8%A3%85docker/image-20210323231415908.png" class="" title="docker详情信息">
-
-<p>若启动正常则会显示很多信息，其中<strong>Registry Mirrors:</strong> 后的内容即为镜像源，若与daemon.json中修改内容一致，则表示已切换成功，至此docker已安装完成，且已更换国内镜像源，并成功启动，接下来就可以进行docker相关操作了。</p>
+<h2 id="kie-server的地址"><a href="#kie-server的地址" class="headerlink" title="kie-server的地址"></a>kie-server的地址</h2><p><a target="_blank" rel="noopener" href="http://localhost:8180/kie-server/services/rest/server/">http://localhost:8180/kie-server/services/rest/server/</a></p>
+<p>默认用户名密码为：kieserver/kieserver1!</p>
 
       
     </div>
@@ -437,6 +427,10 @@
           
             <a href="/tags/docker/" rel="tag"># docker</a>
           
+            <a href="/tags/drools/" rel="tag"># drools</a>
+          
+            <a href="/tags/workbench/" rel="tag"># workbench</a>
+          
         </div>
       
 
@@ -448,15 +442,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2021/06/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8EDrools%E5%AD%A6%E4%B9%A0/" rel="next" title="规则引擎Drools学习">
+                <i class="fa fa-chevron-left"></i> 规则引擎Drools学习
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/03/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/docker%E9%83%A8%E7%BD%B2mysql/" rel="prev" title="docker部署mysql">
-                docker部署mysql <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -528,7 +522,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -539,7 +533,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -550,7 +544,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

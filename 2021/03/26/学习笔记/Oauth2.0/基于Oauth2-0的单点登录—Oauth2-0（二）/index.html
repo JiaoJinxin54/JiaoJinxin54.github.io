@@ -117,7 +117,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/b392d0ea42ed643fbb6aaaa0a9a858f0.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/dfa9b4967297f4718161d276bc82955c.png">
 <meta property="article:published_time" content="2021-03-25T16:53:58.000Z">
-<meta property="article:modified_time" content="2021-03-30T04:11:56.973Z">
+<meta property="article:modified_time" content="2021-05-17T01:48:39.207Z">
 <meta property="article:author" content="JiaoJinxin">
 <meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="Oauth2">
@@ -395,8 +395,8 @@
 <li><strong>认证服务器</strong>：对用户与客户端认证授权的服务器</li>
 <li><strong>资源服务器</strong>：保存用户资源的服务器</li>
 </ul>
-<h2 id="三-四种授权模式"><a href="#三-四种授权模式" class="headerlink" title="三. 四种授权模式"></a>三. 四种授权模式</h2><h3 id="一-授权码模式（authorization-code）"><a href="#一-授权码模式（authorization-code）" class="headerlink" title="(一) 授权码模式（authorization code）"></a>(一) 授权码模式（authorization code）</h3><h4 id="1-适用场景"><a href="#1-适用场景" class="headerlink" title="1. 适用场景"></a>1. 适用场景</h4><p>有后端的web应用，是目前最常用的授权模式，安全性也是最高的。授权码通过前端传送，令牌存储在后端，所有与资源服务器之间的通信都在后端完成，避免令牌的泄露，现在市面上的第三方授权多使用该模式。</p>
-<h4 id="2-授权流程"><a href="#2-授权流程" class="headerlink" title="2. 授权流程"></a>2. 授权流程</h4><ol>
+<h2 id="三-四种授权模式"><a href="#三-四种授权模式" class="headerlink" title="三. 四种授权模式"></a>三. 四种授权模式</h2><h3 id="一-授权码模式（authorization-code）"><a href="#一-授权码模式（authorization-code）" class="headerlink" title="(一) 授权码模式（authorization code）"></a>(一) 授权码模式（authorization code）</h3><h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>有后端的web应用，是目前最常用的授权模式，安全性也是最高的。授权码通过前端传送，令牌存储在后端，所有与资源服务器之间的通信都在后端完成，避免令牌的泄露，现在市面上的第三方授权多使用该模式。</p>
+<h4 id="授权流程"><a href="#授权流程" class="headerlink" title="授权流程"></a>授权流程</h4><ol>
 <li>客户端访问认证服务器请求获取授权。</li>
 <li>认证服务器对客户端进行认证。</li>
 <li>认证服务器跳转登录页面要求用户登录。</li>
@@ -407,17 +407,30 @@
 <li>认证服务器在得到客户允许后给客户端发放授权码。</li>
 <li>客户端使用授权码请求获取令牌（该授权码只能使用一次）。</li>
 <li>认证服务器返回令牌。</li>
-<li>客户端使用令牌访问资源服务器。<br><img src="https://img-blog.csdnimg.cn/img_convert/a31c47a1928f2007c70032dabaac8c48.png" alt="授权码模式"><h3 id="二-密码模式（password）"><a href="#二-密码模式（password）" class="headerlink" title="(二) 密码模式（password）"></a>(二) 密码模式（password）</h3><h5 id="1-适用场景-1"><a href="#1-适用场景-1" class="headerlink" title="1. 适用场景"></a>1. 适用场景</h5>高度信任的客户端应用，多用于同公司的系统。<h5 id="2-授权流程-1"><a href="#2-授权流程-1" class="headerlink" title="2. 授权流程"></a>2. 授权流程</h5></li>
+<li>客户端使用令牌访问资源服务器。</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/a31c47a1928f2007c70032dabaac8c48.png" alt="授权码模式"></p>
+<h3 id="二-密码模式（password）"><a href="#二-密码模式（password）" class="headerlink" title="(二) 密码模式（password）"></a>(二) 密码模式（password）</h3><h4 id="适用场景-1"><a href="#适用场景-1" class="headerlink" title="适用场景"></a>适用场景</h4><p>高度信任的客户端应用，多用于同公司的系统。</p>
+<h4 id="授权流程-1"><a href="#授权流程-1" class="headerlink" title="授权流程"></a>授权流程</h4><ol>
 <li>客户端拿上用户的用户名和密码从认证服务器获取令牌。</li>
 <li>认证服务器返回令牌。</li>
-<li>客户端拿上令牌访问资源服务器。<br><img src="https://img-blog.csdnimg.cn/img_convert/e5648ed1c37032e5d8f72f12745b844c.png" alt="密码模式"><h3 id="三-简化模式-隐式授权模式（implicit）"><a href="#三-简化模式-隐式授权模式（implicit）" class="headerlink" title="(三) 简化模式/隐式授权模式（implicit）"></a>(三) 简化模式/隐式授权模式（implicit）</h3><h5 id="1-适用场景-2"><a href="#1-适用场景-2" class="headerlink" title="1. 适用场景"></a>1. 适用场景</h5>无后端的web应用，令牌需要存储在前端，安全性较差，所以只能用在对安全性要求不高的场景，并且令牌的有效期必须非常短，通常都是会话期间（session）有效，浏览器关掉的时，令牌就失效了。<h5 id="2-授权流程-2"><a href="#2-授权流程-2" class="headerlink" title="2. 授权流程"></a>2. 授权流程</h5></li>
+<li>客户端拿上令牌访问资源服务器。</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/e5648ed1c37032e5d8f72f12745b844c.png" alt="密码模式"></p>
+<h3 id="三-简化模式-隐式授权模式（implicit）"><a href="#三-简化模式-隐式授权模式（implicit）" class="headerlink" title="(三) 简化模式/隐式授权模式（implicit）"></a>(三) 简化模式/隐式授权模式（implicit）</h3><h4 id="适用场景-2"><a href="#适用场景-2" class="headerlink" title="适用场景"></a>适用场景</h4><p>无后端的web应用，令牌需要存储在前端，安全性较差，所以只能用在对安全性要求不高的场景，并且令牌的有效期必须非常短，通常都是会话期间（session）有效，浏览器关掉的时，令牌就失效了。</p>
+<h4 id="授权流程-2"><a href="#授权流程-2" class="headerlink" title="授权流程"></a>授权流程</h4><ol>
 <li>客户端访问认证服务器获取令牌。</li>
 <li>认证服务器返回令牌。</li>
-<li>客户端访问资源服务器。<br><img src="https://img-blog.csdnimg.cn/img_convert/b392d0ea42ed643fbb6aaaa0a9a858f0.png" alt="简化模式"><h3 id="四-客户端模式（client-credentials）"><a href="#四-客户端模式（client-credentials）" class="headerlink" title="(四) 客户端模式（client credentials）"></a>(四) 客户端模式（client credentials）</h3><h5 id="1-适用场景-3"><a href="#1-适用场景-3" class="headerlink" title="1. 适用场景"></a>1. 适用场景</h5>高度信任的客户端应用，该模式是针对第三方客户端而非针对用户，即可能多个用户共享同一个令牌。<h5 id="2-授权流程-3"><a href="#2-授权流程-3" class="headerlink" title="2. 授权流程"></a>2. 授权流程</h5></li>
+<li>客户端访问资源服务器。</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b392d0ea42ed643fbb6aaaa0a9a858f0.png" alt="简化模式"></p>
+<h3 id="四-客户端模式（client-credentials）"><a href="#四-客户端模式（client-credentials）" class="headerlink" title="(四) 客户端模式（client credentials）"></a>(四) 客户端模式（client credentials）</h3><h4 id="适用场景-3"><a href="#适用场景-3" class="headerlink" title="适用场景"></a>适用场景</h4><p>高度信任的客户端应用，该模式是针对第三方客户端而非针对用户，即可能多个用户共享同一个令牌。</p>
+<h4 id="授权流程-3"><a href="#授权流程-3" class="headerlink" title="授权流程"></a>授权流程</h4><ol>
 <li>客户端使用客户端凭证访问认证服务器获取令牌。</li>
 <li>认证服务器返回令牌。</li>
-<li>客户端使用令牌访问资源服务器。<br><img src="https://img-blog.csdnimg.cn/img_convert/dfa9b4967297f4718161d276bc82955c.png" alt="客户端模式"></li>
+<li>客户端使用令牌访问资源服务器。</li>
 </ol>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/dfa9b4967297f4718161d276bc82955c.png" alt="客户端模式"></p>
 
       
     </div>
@@ -536,7 +549,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -547,7 +560,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -558,7 +571,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
