@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习笔记,规则引擎,Drools," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文整理了drools的部分语法，随着后续的使用，逐步扩展。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="规则引擎drools语法整理">
+<meta property="og:url" content="https://jiaojinxin.gitee.io/2021/06/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8Edrools%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="JiaoJinxin">
+<meta property="og:description" content="本文整理了drools的部分语法，随着后续的使用，逐步扩展。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-06-15T01:27:38.000Z">
+<meta property="article:modified_time" content="2021-06-15T04:29:42.350Z">
+<meta property="article:author" content="JiaoJinxin">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="规则引擎">
+<meta property="article:tag" content="Drools">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jiaojinxin.gitee.io/2021/06/15/学习笔记/规则引擎/规则引擎drools语法整理/"/>
+
+
+
+
+
+  <title>规则引擎drools语法整理 | JiaoJinxin</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JiaoJinxin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">焦金鑫的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jiaojinxin.gitee.io/2021/06/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8Edrools%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JiaoJinxin">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">规则引擎drools语法整理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-15T09:27:38+08:00">
+                2021-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/" itemprop="url" rel="index">
+                    <span itemprop="name">规则引擎</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/Drools/" itemprop="url" rel="index">
+                    <span itemprop="name">Drools</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文整理了drools的部分语法，随着后续的使用，逐步扩展。</p>
+<span id="more"></span>
+
+<h2 id="规则文件的基本组成部分"><a href="#规则文件的基本组成部分" class="headerlink" title="规则文件的基本组成部分"></a>规则文件的基本组成部分</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 包名，类似java类的package，但区别在于该处的包名并不一定非要与文件所属路径一致</span><br><span class="line">package packageName</span><br><span class="line">&#x2F;&#x2F; 导入依赖的class，与java类中的import用法一致</span><br><span class="line">import importClass</span><br><span class="line">&#x2F;&#x2F; 全局变量，可选项，类似java类中属性的定义（global 全局变量类型 全局变量名）</span><br><span class="line">global globalType globalName</span><br><span class="line">&#x2F;&#x2F; 规则体，ruleName为规则名称，若为连续字符可不加双引号，可支持中文</span><br><span class="line">rule &quot;ruleName&quot;</span><br><span class="line">    &#x2F;&#x2F; 规则属性，可选项</span><br><span class="line">    attributes</span><br><span class="line">    when</span><br><span class="line">        &#x2F;&#x2F; 条件部分</span><br><span class="line">        LHS</span><br><span class="line">    then</span><br><span class="line">        &#x2F;&#x2F; 结果部分，即满足条件后执行的内容</span><br><span class="line">        RHS</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">package rules</span><br><span class="line"></span><br><span class="line">rule 规则示例</span><br><span class="line">    when</span><br><span class="line">        i:Integer(value &#x3D;&#x3D; 1)</span><br><span class="line">    then</span><br><span class="line">        System.out.println(&quot;hello word&quot;);</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h2 id="when部分"><a href="#when部分" class="headerlink" title="when部分"></a>when部分</h2><h3 id="比较操作符"><a href="#比较操作符" class="headerlink" title="比较操作符"></a>比较操作符</h3><table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&gt;</td>
+<td align="center">大于</td>
+</tr>
+<tr>
+<td align="center">&lt;</td>
+<td align="center">小于</td>
+</tr>
+<tr>
+<td align="center">&gt;=</td>
+<td align="center">大于等于</td>
+</tr>
+<tr>
+<td align="center">&lt;=</td>
+<td align="center">小于等于</td>
+</tr>
+<tr>
+<td align="center">==</td>
+<td align="center">等于</td>
+</tr>
+<tr>
+<td align="center">!=</td>
+<td align="center">不等于</td>
+</tr>
+<tr>
+<td align="center">contains</td>
+<td align="center">检查一个Fact对象的某个属性值是否包含一个指定的对象值</td>
+</tr>
+<tr>
+<td align="center">not contains</td>
+<td align="center">检查一个Fact对象的某个属性值是否不包含一个指定的对象值</td>
+</tr>
+<tr>
+<td align="center">memberOf</td>
+<td align="center">判断一个Fact对象的某个属性是否在一个或多个集合中</td>
+</tr>
+<tr>
+<td align="center">not memberOf</td>
+<td align="center">判断一个Fact对象的某个属性是否不在一个或多个集合中</td>
+</tr>
+<tr>
+<td align="center">matches</td>
+<td align="center">判断一个Fact对象的属性是否与提供的标准的Java正则表达式进行匹配</td>
+</tr>
+<tr>
+<td align="center">not matches</td>
+<td align="center">判断一个Fact对象的属性是否不与提供的标准的Java正则表达式进行匹配</td>
+</tr>
+<tr>
+<td align="center">前面种与java中使用方式一致，后六种的语法如下示例：</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">rule 规则示例</span><br><span class="line">    when</span><br><span class="line">        user:User(roles contains &quot;管理员&quot;)</span><br><span class="line">        user:User(roles not contains &quot;管理员&quot;)</span><br><span class="line">        user:User(&quot;管理员&quot; memberOf roles)</span><br><span class="line">        user:User(&quot;管理员&quot; not memberOf roles)</span><br><span class="line">        user:User(name matches &quot;正则表达式&quot;)</span><br><span class="line">        user:User(name not matches &quot;正则表达式&quot;)</span><br><span class="line">    then</span><br><span class="line">        System.out.println(&quot;规则示例&quot;);</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h3 id="多条件"><a href="#多条件" class="headerlink" title="多条件"></a>多条件</h3><p>可以使用<code>and</code>、<code>or</code>、<code>&amp;&amp;</code>、<code>||</code>、<code>,</code>，其中<code>,</code>表示与，注意使用时，不要混合使用。<br>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rule 规则示例</span><br><span class="line">    when</span><br><span class="line">        user:User(name &#x3D;&#x3D; &quot;张三&quot; &amp;&amp; age &gt;&#x3D; 18)</span><br><span class="line">    then </span><br><span class="line">        System.out.println(&quot;规则示例：&quot;);</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h3 id="循环集合"><a href="#循环集合" class="headerlink" title="循环集合"></a>循环集合</h3><p>关键字<code>from</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rule 规则示例</span><br><span class="line">    when</span><br><span class="line">        list:ArrayList()</span><br><span class="line">        user:User() from list</span><br><span class="line">    then</span><br><span class="line">        System.out.println(user.getName());</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h3 id="集合中的所有对象均需要满足某些条件"><a href="#集合中的所有对象均需要满足某些条件" class="headerlink" title="集合中的所有对象均需要满足某些条件"></a>集合中的所有对象均需要满足某些条件</h3><p>关键字<code>forall</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rule 规则示例</span><br><span class="line">    when</span><br><span class="line">        list:ArrayList()</span><br><span class="line">        forall(user:User(age &gt;&#x3D; 18) from list)</span><br><span class="line">    then</span><br><span class="line">        System.out.println(&quot;规则示例：所有User都需要满足年龄大于等于18&quot;);</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h3 id="集合中找出满足条件的放入新集合中"><a href="#集合中找出满足条件的放入新集合中" class="headerlink" title="集合中找出满足条件的放入新集合中"></a>集合中找出满足条件的放入新集合中</h3><p>关键字<code>collect</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rule 规则示例</span><br><span class="line">    when</span><br><span class="line">        list:ArrayList()</span><br><span class="line">        user:User(age &gt;&#x3D; 18) from list</span><br><span class="line">        newList:ArrayList() from collect(User(age &gt;&#x3D; 18) from list)</span><br><span class="line">    then</span><br><span class="line">        System.out.println(&quot;规则示例：所有User都需要满足年龄大于等于18&quot;);</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h2 id="then部分"><a href="#then部分" class="headerlink" title="then部分"></a>then部分</h2><p>支持java代码，格式同java代码一致。</p>
+<p>另外drools有内置方法可以使用：<code>update</code>，<code>insert</code>，<code>retract</code>，注：使用内置方法时，会导致规则的重新匹配。</p>
+<h3 id="update（更新）"><a href="#update（更新）" class="headerlink" title="update（更新）"></a>update（更新）</h3><p>在不同的规则中修改了对象的属性，若不使用update，则相互之间无法读取到修改后的属性值。<br>使用update方法后，其他规则中则可以读取到当前规则修改的属性值。</p>
+<h3 id="insert（新增）"><a href="#insert（新增）" class="headerlink" title="insert（新增）"></a>insert（新增）</h3><p>向工作空间中新增新的数据。</p>
+<h3 id="retract（删除）"><a href="#retract（删除）" class="headerlink" title="retract（删除）"></a>retract（删除）</h3><p>删除工作空间中的数据。</p>
+<h2 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">global Integer count</span><br></pre></td></tr></table></figure>
+
+<h2 id="attributes部分"><a href="#attributes部分" class="headerlink" title="attributes部分"></a>attributes部分</h2><table>
+<thead>
+<tr>
+<th align="center">属性名</th>
+<th align="center">属性可选值</th>
+<th align="center">属性说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">salience</td>
+<td align="center">数值类型，如：1，2，3</td>
+<td align="center">指定规则执行优先级，数值越大越优先执行，不指定时默认按照在文件中的顺序执行</td>
+</tr>
+<tr>
+<td align="center">dialect</td>
+<td align="center">java/mvel</td>
+<td align="center">指定规则使用的语言类型，取值为java和mvel，默认为java</td>
+</tr>
+<tr>
+<td align="center">enabled</td>
+<td align="center">true/false</td>
+<td align="center">指定规则是否启用，默认为true，可通过指定false暂不启用</td>
+</tr>
+<tr>
+<td align="center">date-effective</td>
+<td align="center">时间字符串，如：”2021-06-15 12:00:00”</td>
+<td align="center">指定规则生效时间，例如限时优惠活动时使用，注：使用时需要传入日期格式，且一定要与规则中的格式一致</td>
+</tr>
+<tr>
+<td align="center">date-expires</td>
+<td align="center">时间字符串，如：”2021-06-15 13:00:00</td>
+<td align="center">指定规则失效时间，例如限时优惠活动时使用</td>
+</tr>
+<tr>
+<td align="center">activation-group</td>
+<td align="center">分组字符串</td>
+<td align="center">激活分组，具有相同分组名称的规则只能有一个规则触发</td>
+</tr>
+<tr>
+<td align="center">agenda-group</td>
+<td align="center">分组字符串</td>
+<td align="center">议程分组，只有获取焦点的组中的规则才有可能触发</td>
+</tr>
+<tr>
+<td align="center">auto-focus</td>
+<td align="center">true/false</td>
+<td align="center">自动获取焦点，一般结合agenda-group一起使用</td>
+</tr>
+<tr>
+<td align="center">no-loop</td>
+<td align="center">true/false</td>
+<td align="center">不循环调用，默认为false，若使用了内置方法导致规则重新匹配，可能导致某一个规则无限执行，此时可以设置该值为true</td>
+</tr>
+<tr>
+<td align="center">timer</td>
+<td align="center">方式1（从int1秒后开始每int2秒执行一次）：timer (int1, int2)；方式2：timer (cron:cron表达式)</td>
+<td align="center">定时器，指定规则触发的时间</td>
+</tr>
+</tbody></table>
+<h2 id="自定义函数function"><a href="#自定义函数function" class="headerlink" title="自定义函数function"></a>自定义函数function</h2><p>function类似java代码中的方法，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function 返回值类型 函数名(可选参数)&#123;</span><br><span class="line">    &#x2F;&#x2F;逻辑代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function void f1()&#123;</span><br><span class="line">    System.out.println(&quot;f1&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function void f2(String str)&#123;</span><br><span class="line">    System.out.println(&quot;f1：&quot; + str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function String f3()&#123;</span><br><span class="line">    return &quot;f3&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function String f4(String str)&#123;</span><br><span class="line">    return &quot;f4：&quot; + str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询query"><a href="#查询query" class="headerlink" title="查询query"></a>查询query</h2><p>查询只存在LHS部分，即在工作空间中查找符合条件的对象，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">query 查询的名称(可选参数)</span><br><span class="line">    LHS</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">query 查询成年人</span><br><span class="line">    user:User(age &gt;&#x3D; 18)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">query 查询固定名字的人(String sname)</span><br><span class="line">    user:User(name &#x3D;&#x3D; sname)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          
+            <a href="/tags/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/" rel="tag"># 规则引擎</a>
+          
+            <a href="/tags/Drools/" rel="tag"># Drools</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/Docker%E9%83%A8%E7%BD%B2DroolsWorkBench/" rel="next" title="Docker部署DroolsWorkBench">
+                <i class="fa fa-chevron-left"></i> Docker部署DroolsWorkBench
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/img/avatar.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:jiaojx54@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-globe"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JiaoJinxin</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
