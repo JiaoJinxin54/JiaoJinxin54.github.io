@@ -113,7 +113,7 @@
 <meta property="og:description" content="本文主要为了记录使用Docker部署DroolsWorkBench的过程。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-06-08T09:26:43.000Z">
-<meta property="article:modified_time" content="2021-06-11T09:45:14.742Z">
+<meta property="article:modified_time" content="2021-06-15T01:22:59.934Z">
 <meta property="article:author" content="JiaoJinxin">
 <meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="docker">
@@ -392,19 +392,21 @@
 
 <h2 id="创建并启动镜像"><a href="#创建并启动镜像" class="headerlink" title="创建并启动镜像"></a>创建并启动镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd --name drools-wb -p 8910:8080 -p 8911:8001 jboss&#x2F;drools-workbench-showcase</span><br></pre></td></tr></table></figure>
 
-<h2 id="复制文件到本机"><a href="#复制文件到本机" class="headerlink" title="复制文件到本机"></a>复制文件到本机</h2><p>将<code>/opt/jboss/wildfly/bin</code>目录及下面文件复制到宿主机，这里为Win10系统，若为linux系统则替换为对应目录，注：要保证目录存在且有操作权限。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp drools-wb:&#x2F;opt&#x2F;jboss&#x2F;wildfly&#x2F;bin E:\docker-file\jboos\wildfly</span><br></pre></td></tr></table></figure>
+<h2 id="复制文件到本机"><a href="#复制文件到本机" class="headerlink" title="复制文件到本机"></a>复制文件到本机</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker cp drools-wb:&#x2F;opt&#x2F;jboss&#x2F;wildfly&#x2F;bin &#x2F;opt&#x2F;docker&#x2F;docker-files&#x2F;drools</span><br><span class="line">docker cp drools-wb:&#x2F;opt&#x2F;jboss&#x2F;wildfly&#x2F;standalone &#x2F;opt&#x2F;docker&#x2F;docker-files&#x2F;drools</span><br></pre></td></tr></table></figure>
 
-<h2 id="删除原容器，创建并启动新容器，并映射外部文件夹"><a href="#删除原容器，创建并启动新容器，并映射外部文件夹" class="headerlink" title="删除原容器，创建并启动新容器，并映射外部文件夹"></a>删除原容器，创建并启动新容器，并映射外部文件夹</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker stop drools-wb</span><br><span class="line">docker rm drools-wb</span><br><span class="line">docker run -itd --name drools-wb -p 8910:8080 -p 8911:8001 -v E:\docker-file\jboos\wildfly\bin:&#x2F;opt&#x2F;jboss&#x2F;wildfly&#x2F;bin jboss&#x2F;drools-workbench-showcase</span><br></pre></td></tr></table></figure>
+<h2 id="授予权限"><a href="#授予权限" class="headerlink" title="授予权限"></a>授予权限</h2><p>若在linux下，挂载宿主机文件时，需要授予权限。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 777 &#x2F;opt&#x2F;docker&#x2F;docker-files&#x2F;drools&#x2F;</span><br></pre></td></tr></table></figure>
 
-<h2 id="打开控制台"><a href="#打开控制台" class="headerlink" title="打开控制台"></a>打开控制台</h2><p>地址为：<a target="_blank" rel="noopener" href="http://localhost:8910/business-central">http://ip:prod/business-central</a>；</p>
+<h2 id="删除原容器，创建并启动新容器，并映射外部文件夹"><a href="#删除原容器，创建并启动新容器，并映射外部文件夹" class="headerlink" title="删除原容器，创建并启动新容器，并映射外部文件夹"></a>删除原容器，创建并启动新容器，并映射外部文件夹</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker stop drools-wb</span><br><span class="line">docker rm drools-wb</span><br><span class="line">docker run -itd --name drools-wb -p 8910:8080 -p 8911:8001 -v &#x2F;opt&#x2F;docker&#x2F;docker-files&#x2F;drools&#x2F;bin:&#x2F;opt&#x2F;jboss&#x2F;wildfly&#x2F;bin -v &#x2F;opt&#x2F;docker&#x2F;docker-files&#x2F;drools&#x2F;standalone:&#x2F;opt&#x2F;jboss&#x2F;wildfly&#x2F;standalone --privileged&#x3D;true jboss&#x2F;drools-workbench-showcase</span><br><span class="line">docker logs -f drools-wb</span><br></pre></td></tr></table></figure>
+
+<h2 id="打开控制台"><a href="#打开控制台" class="headerlink" title="打开控制台"></a>打开控制台</h2><p>地址为：<a target="_blank" rel="noopener" href="http://localhost:8910/business-central">http://ip:port/business-central</a>；</p>
 <p>ip为drools-wb所在服务器的ip，这里为本地服务，即localhost</p>
 <p>prod为8080的映射端口，这里为8910</p>
 <p>用户名密码在文件<code>/opt/jboss/wildfly/standalone/configuration/drools-users.properties</code>中，<br>角色在文件<code>/opt/jboss/wildfly/standalone/configuration/drools-roles.properties</code>中，<br>可进入容器进行查看。</p>
 <h2 id="拉取kie-server-showcase"><a href="#拉取kie-server-showcase" class="headerlink" title="拉取kie-server-showcase"></a>拉取kie-server-showcase</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull jboss&#x2F;kie-server-showcase</span><br></pre></td></tr></table></figure>
-<h2 id="创建并启动容器"><a href="#创建并启动容器" class="headerlink" title="创建并启动容器"></a>创建并启动容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd -p 8912:8080 --name kie-server-showcase --link drools-wb:kie_wb jboss&#x2F;kie-server-showcase</span><br></pre></td></tr></table></figure>
+<h2 id="创建并启动容器"><a href="#创建并启动容器" class="headerlink" title="创建并启动容器"></a>创建并启动容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd -p 8912:8080 --name kie-server-showcase --link drools-wb:kie_wb jboss&#x2F;kie-server-showcase</span><br><span class="line">docker logs -f kie-server-showcase</span><br></pre></td></tr></table></figure>
 
-<h2 id="kie-server的地址"><a href="#kie-server的地址" class="headerlink" title="kie-server的地址"></a>kie-server的地址</h2><p><a target="_blank" rel="noopener" href="http://localhost:8180/kie-server/services/rest/server/">http://localhost:8180/kie-server/services/rest/server/</a></p>
+<h2 id="kie-server的地址"><a href="#kie-server的地址" class="headerlink" title="kie-server的地址"></a>kie-server的地址</h2><p><a target="_blank" rel="noopener" href="http://localhost:8180/kie-server/services/rest/server/">http://ip:port/kie-server/services/rest/server/</a></p>
 <p>默认用户名密码为：kieserver/kieserver1!</p>
 
       

@@ -113,7 +113,7 @@
 <meta property="og:description" content="本文主要为了记录，规则引擎学习过程中的一些笔记，以便在遗忘时可以快速回顾。 什么是规则引擎规则引擎由推理引擎发展而来，主要实现了将业务决策从应用程序代码中分离出来，并使用预定义的语义模块编写业务决策，接受数据输入，解释业务规则，并根据业务规则作出业务决策。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-06-08T01:46:37.000Z">
-<meta property="article:modified_time" content="2021-06-08T10:19:13.668Z">
+<meta property="article:modified_time" content="2021-06-15T01:22:59.927Z">
 <meta property="article:author" content="JiaoJinxin">
 <meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="规则引擎">
@@ -386,16 +386,16 @@
 <span id="more"></span>
 
 <p>通俗的说，就是将代码中的<code>if...else...</code>逻辑提取到规则引擎的规则库中单独存储，规则的变化与修改也不在依赖应用程序的改变即可实现。</p>
-<h2 id="规则-引擎解决了哪些问题"><a href="#规则-引擎解决了哪些问题" class="headerlink" title="规则 引擎解决了哪些问题"></a>规则 引擎解决了哪些问题</h2><ol>
+<h2 id="规则-引擎解决了哪些问题"><a href="#规则-引擎解决了哪些问题" class="headerlink" title="规则 引擎解决了哪些问题"></a>规则 引擎解决了哪些问题</h2><ul>
 <li>将业务规则与应用程序解耦，独立存储与部署。</li>
 <li>可以低成本的、快速的由业务人员直接更新业务规则，无需开发人员的参与。</li>
 <li>开发人员可以不必理解业务规则而进行开发，降低了开发成本与开发难度，提高开发效率，提升程序的扩展性与可维护性。</li>
-</ol>
+</ul>
 <h2 id="市面上比较有名的规则引擎"><a href="#市面上比较有名的规则引擎" class="headerlink" title="市面上比较有名的规则引擎"></a>市面上比较有名的规则引擎</h2><ul>
 <li>开源的代表：Drools</li>
 <li>商业的代表：iLog、VisualRules</li>
 </ul>
-<h2 id="什么是Drools"><a href="#什么是Drools" class="headerlink" title="什么是Drools"></a>什么是Drools</h2><p>KIE(Knowledge Is Everything)是jboos公司的一个综合项目，Drools是其中的一个项目。<br>Drools是一个业务规则管理系统，具有基于前向链和后向链推理的规则引擎，可以快速可靠地评估业务规则和复杂事件处理。<br>规则引擎也是创建专家系统的基本构建块，在人工智能中，专家系统是模拟人类专家决策能力的计算机系统。</p>
+<h2 id="Drools介绍"><a href="#Drools介绍" class="headerlink" title="Drools介绍"></a>Drools介绍</h2><p>KIE(Knowledge Is Everything)是jboos公司的一个综合项目，Drools是其中的一个项目。<br>Drools是一个业务规则管理系统，具有基于前向链和后向链推理的规则引擎，可以快速可靠地评估业务规则和复杂事件处理。<br>规则引擎也是创建专家系统的基本构建块，在人工智能中，专家系统是模拟人类专家决策能力的计算机系统。</p>
 <p><a target="_blank" rel="noopener" href="https://docs.jboss.org/drools/release/7.54.0.Final/drools-docs/html_single/index.html">官方文档地址</a></p>
 <h2 id="Drools中的重要库"><a href="#Drools中的重要库" class="headerlink" title="Drools中的重要库"></a>Drools中的重要库</h2><ul>
 <li>Knowledge-api.jar：这提供了接口和工厂。它还有助于清楚地显示什么是用户 API，什么是引擎 API。</li>
@@ -405,7 +405,7 @@
 <li>drools-jsr94.jar：这是符合 JSR-94 的实现，它本质上是在 drools-compiler 组件之上的一层。请注意，由于 JSR-94 规范的性质，并非所有功能都可以通过此接口轻松公开。在某些情况下，直接使用 Drools API 会更容易，但在某些环境中，JSR-94 是强制性的。</li>
 <li>drools-decisiontables.jar：这是决策表“编译器”组件，它使用 drools-compiler 组件。这支持 excel 和 CSV 输入格式。</li>
 </ul>
-<h2 id="Docker部署DroolsWorkBench"><a href="#Docker部署DroolsWorkBench" class="headerlink" title="Docker部署DroolsWorkBench"></a>Docker部署DroolsWorkBench</h2><p><a target="_blank" rel="noopener" href="https://jiaojinxin54.github.io/2021/06/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/Docker%E9%83%A8%E7%BD%B2DroolsWorkBench/">连接地址</a></p>
+<h2 id="Docker部署DroolsWorkBench与KieServer"><a href="#Docker部署DroolsWorkBench与KieServer" class="headerlink" title="Docker部署DroolsWorkBench与KieServer"></a>Docker部署DroolsWorkBench与KieServer</h2><p><a target="_blank" rel="noopener" href="https://jiaojinxin54.github.io/2021/06/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker%E7%9B%B8%E5%85%B3/Docker%E9%83%A8%E7%BD%B2DroolsWorkBench/">连接地址</a></p>
 
       
     </div>
