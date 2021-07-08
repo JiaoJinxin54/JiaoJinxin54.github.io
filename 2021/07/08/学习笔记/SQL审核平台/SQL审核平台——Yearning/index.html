@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习笔记,SQL审核平台,Yearning," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一 关于YearninigMysql的SQL语句审核平台。 提供查询审计，SQL审核，SQL回滚，自定义工作流等多种功能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL审核平台——Yearning">
+<meta property="og:url" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/index.html">
+<meta property="og:site_name" content="JiaoJinxin">
+<meta property="og:description" content="一 关于YearninigMysql的SQL语句审核平台。 提供查询审计，SQL审核，SQL回滚，自定义工作流等多种功能。">
+<meta property="og:locale">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708105237136.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708105314298.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708105441309.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708105527462.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708105629943.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708105903572.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110004852.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110153257.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110259545.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110351006.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110427081.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110655347.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110720547.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110501800.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110537054.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708100303398.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708100443774.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708100552897.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708103217321.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708103721995.png">
+<meta property="og:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708104701967.png">
+<meta property="article:published_time" content="2021-07-08T03:12:38.000Z">
+<meta property="article:modified_time" content="2021-07-08T06:33:36.946Z">
+<meta property="article:author" content="JiaoJinxin">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="SQL审核平台">
+<meta property="article:tag" content="Yearning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708105237136.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"remove","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jiaojinxin.gitee.io/2021/07/08/学习笔记/SQL审核平台/SQL审核平台——Yearning/"/>
+
+
+
+
+
+  <title>SQL审核平台——Yearning | JiaoJinxin</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JiaoJinxin</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">焦金鑫的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jiaojinxin.gitee.io/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JiaoJinxin">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SQL审核平台——Yearning</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-08T11:12:38+08:00">
+                2021-07-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL审核平台</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一-关于Yearninig"><a href="#一-关于Yearninig" class="headerlink" title="一 关于Yearninig"></a>一 关于Yearninig</h1><p>Mysql的SQL语句审核平台。</p>
+<p>提供查询审计，SQL审核，SQL回滚，自定义工作流等多种功能。</p>
+<span id="more"></span>
+
+<p>后端逻辑实现采用Go语言实现。</p>
+<p>前端界面采用vue.js框架实现。</p>
+<p>官网：<a target="_blank" rel="noopener" href="http://yearning.io/">http://yearning.io/</a></p>
+<p>使用文档：<a target="_blank" rel="noopener" href="https://guide.yearning.io/">https://guide.yearning.io/</a></p>
+<h1 id="二-添加Mysql库"><a href="#二-添加Mysql库" class="headerlink" title="二 添加Mysql库"></a>二 添加Mysql库</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 创建database</span><br><span class="line">create database Yearning CHARACTER SET UTF8mb4 COLLATE utf8mb4_general_ci;</span><br></pre></td></tr></table></figure>
+
+<h1 id="三-安装"><a href="#三-安装" class="headerlink" title="三 安装"></a>三 安装</h1><p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/cookieY/Yearning/releases">https://github.com/cookieY/Yearning/releases</a></p>
+<h2 id="1-目录结构"><a href="#1-目录结构" class="headerlink" title="1 目录结构"></a>1 目录结构</h2><ul>
+<li># README</li>
+<li>conf.toml</li>
+<li>docker-compose.yml</li>
+<li>Dockerfile</li>
+<li>Yearning</li>
+</ul>
+<h2 id="2-步骤"><a href="#2-步骤" class="headerlink" title="2 步骤"></a>2 步骤</h2><p>上传、解压压缩包文件，本次下载的压缩文件名为：Yearning-2.3.3.2-linux-amd64.zip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 将压缩包Yearning-2.3.3.2-linux-amd64.zip上传至linux服务器</span><br><span class="line"># 跳转Yearning目录</span><br><span class="line">cd &#x2F;opt&#x2F;Yearning-2.3.3.2&#x2F;</span><br><span class="line"># 解压</span><br><span class="line">unzip Yearning-2.3.3.2-linux-amd64.zip</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-直接启动"><a href="#2-1-直接启动" class="headerlink" title="2.1 直接启动"></a>2.1 直接启动</h3><ul>
+<li>修改配置文件：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 修改配置文件(vim conf.toml)</span><br><span class="line">[Mysql]</span><br><span class="line"># mysql database</span><br><span class="line">Db &#x3D; &quot;Yearning&quot;</span><br><span class="line"># mysql数据库地址</span><br><span class="line">Host &#x3D; &quot;127.0.0.1&quot;</span><br><span class="line"># mysql端口号</span><br><span class="line">Port &#x3D; &quot;3306&quot;</span><br><span class="line"># mysql用户密码</span><br><span class="line">Password &#x3D; &quot;root&quot;</span><br><span class="line"># mysql用户名</span><br><span class="line">User &#x3D; &quot;root&quot;</span><br><span class="line"></span><br><span class="line">[General]   #数据库加解密key，只可更改一次。</span><br><span class="line">SecretKey &#x3D; &quot;dbcjqheupqjsuwsm&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>初始化并启动Yearning（非首次启动无需初始化）：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 初始化mysql库</span><br><span class="line">.&#x2F;Yearning install</span><br><span class="line"># 启动</span><br><span class="line">.&#x2F;Yearning run</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-使用docker启动"><a href="#2-2-使用docker启动" class="headerlink" title="2.2 使用docker启动"></a>2.2 使用docker启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 修改docker-compose.yml(vim docker-compose.yml)</span><br><span class="line">version: &#39;3&#39;</span><br><span class="line">services:</span><br><span class="line">    yearning:</span><br><span class="line">        image: test&#x2F;yearning:latest</span><br><span class="line">        build:</span><br><span class="line">            context: .</span><br><span class="line">            dockerfile: Dockerfile</span><br><span class="line">        environment:</span><br><span class="line">            MYSQL_USER: root</span><br><span class="line">            MYSQL_PASSWORD: root</span><br><span class="line">            MYSQL_ADDR: 127.0.0.1:3306</span><br><span class="line">            MYSQL_DB: Yearning</span><br><span class="line">        ports:</span><br><span class="line">            - 8000:8000</span><br><span class="line">        restart: always</span><br><span class="line"></span><br><span class="line"># 使用docker启动</span><br><span class="line">docker-compose up</span><br><span class="line"># 若希望后台启动，则加-d</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-打开Yearning"><a href="#2-3-打开Yearning" class="headerlink" title="2.3 打开Yearning"></a>2.3 打开Yearning</h3><p>地址：<a href="localhost:8000">ip:8000</a></p>
+<p>默认用户：admin Yearning_admin</p>
+<h2 id="3-关于-SecretKey"><a href="#3-关于-SecretKey" class="headerlink" title="3 关于 SecretKey"></a>3 关于 SecretKey</h2><p>SecretKey 是 token/数据库密码加密/解密的 salt。</p>
+<p>建议所有用户在初次安装 Yearning 之前将 SecretKey 更改(不更改将存在安全风险)</p>
+<p><strong>格式: 大小写字母均可, 长度必须为 16 位 如长度不是16位将会导致无法新建数据源</strong></p>
+<p><strong>特别注意:</strong></p>
+<p><strong>此 key 仅可在初次安装时更改!之后不可再次更改!如再次更改会导致之前已存放的数据源密码无法解密,最终导致无法获取相关数据源信息</strong></p>
+<h1 id="四-功能"><a href="#四-功能" class="headerlink" title="四 功能"></a>四 功能</h1><h2 id="1-提交员"><a href="#1-提交员" class="headerlink" title="1 提交员"></a>1 提交员</h2><h3 id="1-1-首页"><a href="#1-1-首页" class="headerlink" title="1.1 首页"></a>1.1 首页</h3><h4 id="1-1-1-修改个人信息"><a href="#1-1-1-修改个人信息" class="headerlink" title="1.1.1 修改个人信息"></a>1.1.1 修改个人信息</h4><ul>
+<li><p>修改邮箱</p>
+</li>
+<li><p>修改姓名</p>
+</li>
+</ul>
+<h4 id="1-1-2-修改用户密码"><a href="#1-1-2-修改用户密码" class="headerlink" title="1.1.2 修改用户密码"></a>1.1.2 修改用户密码</h4><h4 id="1-1-3-查看用户权限"><a href="#1-1-3-查看用户权限" class="headerlink" title="1.1.3 查看用户权限"></a>1.1.3 查看用户权限</h4><h4 id="1-1-4-查看统计信息"><a href="#1-1-4-查看统计信息" class="headerlink" title="1.1.4 查看统计信息"></a>1.1.4 查看统计信息</h4><ul>
+<li>用户数量、数据源数量、工单数、查询总数</li>
+<li>高频库/top 10</li>
+<li>DDL/DML次数统计</li>
+</ul>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708105237136.png" class="" title="首页">
+
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708105314298.png" class="" title="首页">
+
+<h3 id="1-2-我的工单"><a href="#1-2-我的工单" class="headerlink" title="1.2 我的工单"></a>1.2 我的工单</h3><ul>
+<li>当前用户提交的工单列表</li>
+<li>某个工单的详细信息<ul>
+<li>工单信息（提交时的具体信息、当前的执行状态）</li>
+<li>流程步骤（审批步骤）</li>
+<li>流程记录（审批信息）</li>
+<li>SQL审核（提交的SQL语句、SQL语句的执行结果）</li>
+</ul>
+</li>
+</ul>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708105441309.png" class="" title="我的工单">
+
+<h3 id="1-3-工单提交"><a href="#1-3-工单提交" class="headerlink" title="1.3 工单提交"></a>1.3 工单提交</h3><ul>
+<li>提交DDL类型工单</li>
+<li>提交DML类型工单</li>
+</ul>
+<p>提交工单步骤：</p>
+<ol>
+<li><p>填写工单基本信息</p>
+<p>选择环境、连接名、库名、审核人、是否备份，以及填写说明后，即可选择进入下一步。</p>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708105527462.png" class="" title="填写工单基本信息"></li>
+<li><p>填写SQL语句</p>
+<p>填写SQL，可美化SQL，可校验SQL，校验SQL为必要操作，校验通过后才可以提交，若校验不通过，可进行原因查询，直至校验通过。</p>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708105629943.png" class="" title="填写SQL语句"></li>
+<li><p>确认工单并提交</p>
+<p>确认无误后，即可进行提交，即点击<code>检测语句</code>校测通过后（错误等级为0），<code>提交工单</code>会变为可点击状态。</p>
+</li>
+</ol>
+<h3 id="1-4-SQL查询"><a href="#1-4-SQL查询" class="headerlink" title="1.4 SQL查询"></a>1.4 SQL查询</h3><p>选择环境、审核人，填写查询说明后，即可进行提交，若管理员开启了查询审核，需要等待审核人进行审核，若未开启，则直接进入查询页面。</p>
+<p>查询连接时长由管理员设置，若连接时间过期，则需要重新发起查询申请。</p>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708105903572.png" class="" title="提交审核">
+
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110004852.png" class="" title="选择数据源">
+
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110153257.png" class="" title="查询界面">
+
+<h2 id="2-操作员"><a href="#2-操作员" class="headerlink" title="2 操作员"></a>2 操作员</h2><p>操作员拥有提交员的所有权限，除以上权限外，还有审核、查询记录功能。</p>
+<h3 id="2-1-审核"><a href="#2-1-审核" class="headerlink" title="2.1 审核"></a>2.1 审核</h3><h4 id="2-1-1-工单"><a href="#2-1-1-工单" class="headerlink" title="2.1.1 工单"></a>2.1.1 工单</h4><p>工单处，可对工单进行审核，同样需要先校验SQL语句，若校验通过后才可以流转到下个节点，也可以选择驳回。</p>
+<p>若为最后一个执行节点，则SQL语句校验通过后可以手动执行SQL语句。</p>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110259545.png" class="" title="审核列表">
+
+<h4 id="2-1-2-查询"><a href="#2-1-2-查询" class="headerlink" title="2.1.2 查询"></a>2.1.2 查询</h4><p>查看查询连接记录，若开启了查询审核，则可在该处对查询进行审核。</p>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110351006.png" class="" title="查询">
+
+<h3 id="2-2-记录"><a href="#2-2-记录" class="headerlink" title="2.2 记录"></a>2.2 记录</h3><h4 id="2-2-1-工单记录"><a href="#2-2-1-工单记录" class="headerlink" title="2.2.1 工单记录"></a>2.2.1 工单记录</h4><p>可查询工单的执行记录，以及工单的详细信息。</p>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110427081.png" class="" title="历史工单记录列表">
+
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110655347.png" class="" title="历史工单记录详情">
+
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110720547.png" class="" title="历史工单记录详情">
+
+<h4 id="2-2-2-查询记录"><a href="#2-2-2-查询记录" class="headerlink" title="2.2.2 查询记录"></a>2.2.2 查询记录</h4><p>可查看查询的执行记录，以及查询的详细信息，包括查询数据源、数据库、SQL语句、SQL执行耗时，以及SQL的执行次序。</p>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110501800.png" class="" title="历史查询记录列表">
+
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708110537054.png" class="" title="历史查询详情">
+
+<h2 id="3-管理员"><a href="#3-管理员" class="headerlink" title="3 管理员"></a>3 管理员</h2><p>管理员拥有的权限组中有数据源的读写权限，则也可以发起工单、查询。</p>
+<p>若权限组中审核人选择了管理员，则管理员也拥有操作员的审批权限。</p>
+<h3 id="3-1-管理"><a href="#3-1-管理" class="headerlink" title="3.1 管理"></a>3.1 管理</h3><h4 id="3-1-1-用户"><a href="#3-1-1-用户" class="headerlink" title="3.1.1 用户"></a>3.1.1 用户</h4><p>可以新增用户、修改用户密码、给用户分配权限、删除用户、查询用户的详细信息。</p>
+<p>其中admin用户（默认用户）初始时只有<strong>超级管理员</strong>角色，可以为admin用户配置其他角色组。</p>
+<p>角色只有提交人、操作人两种，其中操作人拥有审核、执行权限以及提交人的所有权限，提交人只能提交工单或提交查询。</p>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708100303398.png" class="" title="添加用户">
+
+<h4 id="3-1-2-数据库"><a href="#3-1-2-数据库" class="headerlink" title="3.1.2 数据库"></a>3.1.2 数据库</h4><p>可以添加数据库信息。</p>
+<p><strong>注</strong>：</p>
+<ol>
+<li>保存前可以进行连接测试，连接成功后再进行保存。</li>
+<li>数据源名称需唯一。</li>
+</ol>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708100443774.png" class="" title="添加数据库">
+
+<h4 id="3-1-3-权限组"><a href="#3-1-3-权限组" class="headerlink" title="3.1.3 权限组"></a>3.1.3 权限组</h4><p>添加权限组，可为每个权限组配置响应的操作权限。</p>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708100552897.png" class="" title="创建权限组">
+
+<h4 id="3-1-4-流程模板"><a href="#3-1-4-流程模板" class="headerlink" title="3.1.4 流程模板"></a>3.1.4 流程模板</h4><p>为每个环境创建自己的审核流程，第一阶段默认为提交，可以添加审核、执行流程，且最后一阶段只能为执行。</p>
+<p><strong>注</strong>：</p>
+<ol>
+<li>中间审核人最多支持5层。</li>
+<li>仅允许拥有一个执行阶段，即最后一个阶段只能为执行阶段。</li>
+<li>如对现有流程进行修改，需将目前该流程下所有工单流转完成，否则可能导致流程错乱。</li>
+<li>在使用之前需要先配置好流程模板，否则提交人在提交工单时无法选择数据库。</li>
+</ol>
+<h4 id="3-1-5-审核规则"><a href="#3-1-5-审核规则" class="headerlink" title="3.1.5 审核规则"></a>3.1.5 审核规则</h4><p>可以开启SQL语句的审核规则，Yearning中已内置不少规则。</p>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708103217321.png" class="" title="Yearning内置规则">
+
+<h4 id="3-1-6-自动任务"><a href="#3-1-6-自动任务" class="headerlink" title="3.1.6 自动任务"></a>3.1.6 自动任务</h4><p>可以开启<strong>增</strong>、<strong>删</strong>、<strong>改</strong>的定时任务，即开启定时任务后，提交DML工单时若选择了定时执行时间，则在到达约定时间时可以自行执行。</p>
+<p><strong>注</strong>：</p>
+<p>仅测试，若开启了定时任务，则DML工单将不在途径审核流程，在提交员提交后，操作员无法审核，且到达约定时间时任务被自行执行，故该功能目前暂无实用性。</p>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708103721995.png" class="" title="autoTask">
+
+<h4 id="3-1-7-设置"><a href="#3-1-7-设置" class="headerlink" title="3.1.7 设置"></a>3.1.7 设置</h4><p>可以进行LDAP设置，登录支持LDAP登录。</p>
+<p>可以设置消息推送，支持webhook推送、email推送。</p>
+<p>还拥有进阶设置：</p>
+<ol>
+<li>查询最大limit限制，防止大量全表查询。</li>
+<li>自定义环境。</li>
+<li>排除数据库，即设置了排除的数据库（mysql的dabatase），则该database将不允许被连接查询、执行SQL语句。</li>
+<li>脱敏字段设置（根据字段名设置），查询时脱敏字段值会被隐藏。</li>
+<li>设置是否开启查询审核、查询导出，以及设置查询连接时长，超过该时长后需要重新提交查询。</li>
+<li>设置是否允许注册，若开启后，用户可自行注册，而不用超级管理员进行用户创建。</li>
+<li>删除指定日期前的工单记录、查询记录。</li>
+</ol>
+<img src="/2021/07/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0%E2%80%94%E2%80%94Yearning/image-20210708104701967.png" class="" title="进阶设置">
+
+<h3 id="3-2-公告"><a href="#3-2-公告" class="headerlink" title="3.2 公告"></a>3.2 公告</h3><p>可以实时发布全员可见的公告（markdown格式）</p>
+<h1 id="五-建议"><a href="#五-建议" class="headerlink" title="五 建议"></a>五 建议</h1><ol>
+<li><p>这里Yearning官方建议读写库做分离，保证不影响线上环境的运行。</p>
+</li>
+<li><p>建议为每个项目分配对应的数据库用户，且该用户只有该项目所需要连接的database的权限，因为做权限管理时，将数据源与权限组做关联，则该权限组拥有该数据源配置的用户所拥有的所有db的权限。</p>
+</li>
+<li><p>针对读写权限分离，这里有两个方案：</p>
+<ol>
+<li>分别创建拥有读写操作权限的数据库用户与拥有只读权限的数据库用户，添加数据源时添加两个数据源（读写、只读）</li>
+<li>创建一个拥有读写操作权限的数据库用户，在添加权限组时，区分DDL、DML、DQL权限，这里建议为每个项目创建至少三个权限组，将DDL、DML、DQL三个权限做拆分，三个权限组分别拥有不同的权限，即DDL权限组、DML权限组、DQL权限组，若DDL不通过该流程，则至少创建两个权限组。</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          
+            <a href="/tags/SQL%E5%AE%A1%E6%A0%B8%E5%B9%B3%E5%8F%B0/" rel="tag"># SQL审核平台</a>
+          
+            <a href="/tags/Yearning/" rel="tag"># Yearning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8Edrools%E8%AF%AD%E6%B3%95%E6%95%B4%E7%90%86/" rel="next" title="规则引擎drools语法整理">
+                <i class="fa fa-chevron-left"></i> 规则引擎drools语法整理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JiaoJinxin</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
